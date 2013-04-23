@@ -1,0 +1,36 @@
+<%= form_for(@event_creator) do |f| %>
+  <% if @event_creator.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@event_creator.errors.count, "error") %> prohibited this event_creator from being saved:</h2>
+
+      <ul>
+      <% @event_creator.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :fb_id %><br />
+    <%= f.text_field :fb_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cal_id %><br />
+    <%= f.text_field :cal_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :college %><br />
+    <%= f.select :college_id, College.all.collect {|c| [ c.name, c.id ] } %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

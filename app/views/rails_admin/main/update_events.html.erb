@@ -1,0 +1,48 @@
+To get your facebook Access Token, go to this link:
+<a href="https://developers.facebook.com/tools/explorer">https://developers.facebook.com/tools/explorer</a>
+<%= form_tag(@post) do %>
+  <legend>Authenticate Facebook</legend>
+  <%= label_tag(:fbAccessToken, "Facebook Access Token:") %>
+  <%= text_field_tag(:fbAccessToken) %>
+  <%= submit_tag("Save", :class => "btn" ) %>
+<% end %>
+
+<br />
+To get your Google Access Token, go to this link:
+<a href="https://developers.google.com/oauthplayground/">https://developers.google.com/oauthplayground/</a>
+<%= form_tag(@post) do %>
+  <legend>Authenticate Google</legend>
+  <%= label_tag(:googleRefreshToken, "Google Refresh Token:") %>
+  <%= text_field_tag(:googleRefreshToken) %>
+  <br />
+  <%= label_tag(:googleAccessToken, "Google Access Token:") %>
+  <%= text_field_tag(:googleAccessToken) %>
+  <%= submit_tag("Save", :class => "btn" ) %>
+<% end %>
+
+<%= form_tag(@post, :id => "collegeForm") do %>
+ <div class="field">
+  <%= label_tag :college %>
+  <%= select_tag(:college, options_for_select(College.all.collect {|c| [ c.name, c.nickname ] })) %>
+</div>
+<div class="field">
+  <%= label_tag(:loops, "Number of pages to check:") %>
+  <%= number_field_tag(:loops, 1) %>
+</div>
+<%= submit_tag("Update", :class => "btn" ) %>
+<% end %>
+
+<br />
+
+<% title "Update Calendar" %>
+<p id="response"><%= checkPosts %></p>
+
+<script>
+ $("#collegeForm")
+    .bind("ajax:beforeSend",  toggleLoading)
+    .bind("ajax:complete", toggleLoading)
+    .bind("ajax:success", function(xhr, data, status) {
+      alert('hi');
+      $("#response").html($(data).find("#response").html());
+    });
+</script>

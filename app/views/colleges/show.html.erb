@@ -1,0 +1,79 @@
+<div class="navbar navbar-fixed-top" id='collegeNavBar'>
+  <div class="navbar-inner">
+    <a class="brand" href="#"><%= @college.nickname %></a>
+    <ul class="nav">
+      <li class="active"><a href="#stats">Stats</a></li>
+      <li><a href="#calendar">What's Going On?</a></li>
+    </ul>
+  </div>
+</div>
+
+<p id="notice"><%= notice %></p>
+
+<br>
+<div>
+  <h1 id="stats" class="text-center"><%= @college.name %></h1>
+  <div class="row-fluid push-right">
+    <div class="span2 offset2 text-right push-right">
+      <div id="studentPop">
+        <h4>Student Population</h4>
+        <p>Undergraduate - <%= @college.popUndergrad %></p>
+        <p>Graduate - <%= @college.popGrad %></p>
+      </div>
+
+      <br>
+
+      <div id="studentAcad" class="fix-right">
+        <h4>General Academics</h4>
+        <p><%= @college.programsOfStudy %>+ programs of study</p>
+        <p>~<%= @college.uniqueCourses %> unique courses</p>
+      </div>
+
+      <br>
+      
+      <div id="studentStudyAbroad">
+        <h4>Study Abroad</h4>
+        <p>~<%= @college.studyAbroad %> programs</p>
+      </div>
+    </div>
+
+
+    <div class="span3 vert-centered setImgZIndex">
+      <%= image_tag(@college.imageURL, :alt => "school logo", :id => "collegeImage", :height => "300") %>
+     <!-- <img src= <%= @college.imageURL %> class="img-rounded"> -->
+    </div>
+     
+
+    <div class="span3 push-left">
+      <div id="jewishPop" >
+        <h4>Jewish Student Population</h4>
+        <p>Undergraduate - <%= @college.jewishPopUndergrad %></p>
+        <p>Graduate - <%= @college.jewishPopGrad %></p>
+      </div>
+
+      <br>
+      
+      <div id="jewishAcad" class="fix-left">
+        <h4>Jewish Academics</h4>
+        <p><%= jewishMajorMinor %></p>
+        <p>~<%= @college.jewishCourses %> relevant courses</p>
+      </div>
+
+      <br>
+      
+      <div id="jewishStudyAbroad">
+        <h4>Israel Study Abroad</h4>
+        <p>~<%= @college.israelStudyAbroad %> programs</p>
+      </div>
+
+    </div>
+  </div>
+  <br />
+  <h4 class="text-center" id="calendar">What's going on?</h4>
+  <br />
+
+  <center><iframe src=<%=  @college.gcalURL.html_safe  %> style=" border-width:0 " width="1000" height="600" frameborder="0" scrolling="no"></iframe></center>
+</div>
+
+<% title @college.name %>
+<%= link_to 'Back', colleges_path %>

@@ -1,0 +1,43 @@
+<h1>Colleges</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Nickname</th>
+    <th>Popundergrad</th>
+    <th>Popgrad</th>
+    <th>Programsofstudy</th>
+    <th>Uniquecourses</th>
+    <th>Studyabroad</th>
+    <th>Jewishpopundergrad</th>
+    <th>Jewishpopgrad</th>
+    <th>Jewishminor</th>
+    <th>Jewishmajor</th>
+    <th>Jewishcourses</th>
+    <th>Israelstudyabroad</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @colleges.each do |college| %>
+  <tr>
+    <td><%= college.name %></td>
+    <td><%= college.nickname %></td>
+    <td><%= college.popUndergrad %></td>
+    <td><%= college.popGrad %></td>
+    <td><%= college.programsOfStudy %></td>
+    <td><%= college.uniqueCourses %></td>
+    <td><%= college.studyAbroad %></td>
+    <td><%= college.jewishPopUndergrad %></td>
+    <td><%= college.jewishPopGrad %></td>
+    <td><%= college.jewishMinor %></td>
+    <td><%= college.jewishMajor %></td>
+    <td><%= college.jewishCourses %></td>
+    <td><%= college.israelStudyAbroad %></td>
+    <td><%= link_to 'Show', college %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />

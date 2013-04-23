@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>fb_id:</b>
+  <%= @event_creator.fb_id %>
+</p>
+
+<p>
+  <b>cal_id:</b>
+  <%= @event_creator.cal_id %>
+</p>
+
+<p>
+  <b>College:</b>
+  <%= @event_creator.college %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @event_creator.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_event_creator_path(@event_creator) %> |
+<%= link_to 'Back', event_creators_path %>

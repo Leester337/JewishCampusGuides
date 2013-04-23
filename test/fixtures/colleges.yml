@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id: 1
+  name: MyString
+  popUndergrad: 1
+  popGrad: 1
+  programsOfStudy: 1
+  uniqueCourses: 1
+  studyAbroad: 1
+  jewishPopUndergrad: 1
+  jewishPopGrad: 1
+  jewishMinor: false
+  jewishMajor: false
+  jewishCourses: 1
+  israelStudyAbroad: 1
+
+two:
+  id: 1
+  name: MyString
+  popUndergrad: 1
+  popGrad: 1
+  programsOfStudy: 1
+  uniqueCourses: 1
+  studyAbroad: 1
+  jewishPopUndergrad: 1
+  jewishPopGrad: 1
+  jewishMinor: false
+  jewishMajor: false
+  jewishCourses: 1
+  israelStudyAbroad: 1

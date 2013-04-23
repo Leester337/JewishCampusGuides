@@ -1,0 +1,45 @@
+// Place all the styles related to the Colleges controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.push-right
+{
+	position: relative;
+	z-index: 2;
+	left: 4%;
+}
+
+.push-left
+{
+	position: relative;
+	z-index: 2;
+	right: 6%;
+}
+
+.fix-right
+{
+	position: relative;
+	right: 20%;
+}
+
+.fix-left
+{
+	position: relative;
+	left: 10%;
+}
+
+.setImgZIndex
+{
+	position: relative;
+	z-index:1;
+}
+
+body
+{
+	padding-top:40px;
+}
+
+#collegeImage
+{
+	height: 300px;
+}

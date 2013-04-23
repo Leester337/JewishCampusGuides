@@ -1,0 +1,8 @@
+en:
+  admin:
+    actions:
+      updateEventsKey: 
+        title: "Update Calenders"
+        menu: "Update Calenders"
+        breadcrumb: "Update Calenders"
+        link: "/admin/updateEvents"
