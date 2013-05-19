@@ -16,7 +16,6 @@ class CollegesController < ApplicationController
   # GET /colleges/1.json
   def show
     @college = College.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @college }
@@ -82,4 +81,10 @@ class CollegesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+  def current_user
+    @current_user ||= ProspectiveStudent.find(session[:user_id]) if session[:user_id]
+  end
+  #helper_method :current_user
 end

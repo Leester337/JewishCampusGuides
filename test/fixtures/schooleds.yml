@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  year: 1
+  degree: MyString
+  concentration: MyString
+  prospective_student: 
+  school: 
+
+two:
+  year: 1
+  degree: MyString
+  concentration: MyString
+  prospective_student: 
+  school: 

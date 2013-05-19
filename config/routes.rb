@@ -3,10 +3,17 @@ JewishResources::Application.routes.draw do
   devise_for :users
 
   resources :colleges, :only => [:index, :show]
+  match "/colleges/:id" => 'colleges#show', :via => [:post]
   #match "/colleges" => "colleges#index", as: 'colleges_path'
   #match "/colleges/:id" => "colleges#show", as: "college"
   #match 'admin/update_events' => 'updateEvents#create', :via => [:post]
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+
+  match 'auth/:provider/callback', to: 'sessions#create'
+  match 'auth/failure', to: redirect('/')
+  match 'signout', to: 'sessions#destroy', as: 'signout'
+
+  match 'find/organization_by_college', to: 'event_creators#organization_selection', :via => [:get]
 
 
 

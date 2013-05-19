@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  venue: 
+  description: MyText
+  website: MyString
+  num_yrs_on_campus: 1
+  num_staff: 1
+  event_creators: 
+
+two:
+  name: MyString
+  venue: 
+  description: MyText
+  website: MyString
+  num_yrs_on_campus: 1
+  num_staff: 1
+  event_creators: 

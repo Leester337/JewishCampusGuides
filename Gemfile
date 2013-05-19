@@ -15,7 +15,7 @@ gem 'debugger'
 gem 'rails_admin'
 gem 'devise'
 gem 'coffee-rails', '~> 3.2.1'
-gem 'aws-sdk'
+gem 'omniauth-facebook', '1.4.0'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -30,6 +30,10 @@ group :assets do
 end
 
 gem 'jquery-rails'
+
+group :development do
+	gem "thin"
+end
 
 
 # To use ActiveModel has_secure_password

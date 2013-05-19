@@ -1,43 +1,23 @@
-<h1>Colleges</h1>
+<center>
+<h2>Colleges</h2>
 
-<table>
+<table class='table'>
   <tr>
     <th>Name</th>
     <th>Nickname</th>
-    <th>Popundergrad</th>
-    <th>Popgrad</th>
-    <th>Programsofstudy</th>
-    <th>Uniquecourses</th>
-    <th>Studyabroad</th>
-    <th>Jewishpopundergrad</th>
-    <th>Jewishpopgrad</th>
-    <th>Jewishminor</th>
-    <th>Jewishmajor</th>
-    <th>Jewishcourses</th>
-    <th>Israelstudyabroad</th>
-    <th></th>
-    <th></th>
     <th></th>
   </tr>
 
 <% @colleges.each do |college| %>
   <tr>
-    <td><%= college.name %></td>
+    <td>
+    <%= link_to image_tag(college.imageURL,  :alt => "school logo", :id => "collegeImageSmall", :height => "50"), college %>
+    <%= link_to college.name, college%></td>
     <td><%= college.nickname %></td>
-    <td><%= college.popUndergrad %></td>
-    <td><%= college.popGrad %></td>
-    <td><%= college.programsOfStudy %></td>
-    <td><%= college.uniqueCourses %></td>
-    <td><%= college.studyAbroad %></td>
-    <td><%= college.jewishPopUndergrad %></td>
-    <td><%= college.jewishPopGrad %></td>
-    <td><%= college.jewishMinor %></td>
-    <td><%= college.jewishMajor %></td>
-    <td><%= college.jewishCourses %></td>
-    <td><%= college.israelStudyAbroad %></td>
     <td><%= link_to 'Show', college %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
+</center>

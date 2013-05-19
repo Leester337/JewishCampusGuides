@@ -6,7 +6,13 @@
 {
 	position: relative;
 	z-index: 2;
-	left: 4%;
+	left: 3%;
+
+}
+
+#rightColumn
+{
+	padding-left: 2%;
 }
 
 .push-left
@@ -14,6 +20,12 @@
 	position: relative;
 	z-index: 2;
 	right: 6%;
+	width:20%;
+}
+
+fieldset
+{
+	width: 100%;
 }
 
 .fix-right
@@ -34,6 +46,25 @@
 	z-index:1;
 }
 
+#moveLeft {
+	display: block;
+	text-align: left;
+}
+
+#peopleThumbnails {
+    text-align:center;
+}
+
+#peopleThumbnails > li {
+    display: inline-block;
+    *display:inline; /* ie7 fix */
+    float: none; /* this is the part that makes it work */
+}
+
+#peopleImg {
+	max-height: 200px;
+}
+
 body
 {
 	padding-top:40px;
@@ -42,4 +73,14 @@ body
 #collegeImage
 {
 	height: 300px;
+}
+
+#collegeImageSmall
+{
+	height: 50px;
+}
+
+#matchForm
+{
+	width: 17%;
 }

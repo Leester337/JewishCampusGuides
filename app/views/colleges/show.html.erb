@@ -1,79 +1,127 @@
-<div class="navbar navbar-fixed-top" id='collegeNavBar'>
+<div class="navbar navbar-inverse navbar-fixed-top" id='collegeNavBar'>
   <div class="navbar-inner">
     <a class="brand" href="#"><%= @college.nickname %></a>
     <ul class="nav">
       <li class="active"><a href="#stats">Stats</a></li>
       <li><a href="#calendar">What's Going On?</a></li>
+      <li><a href="#Organizations">Organizations</a></li>
+      <li><a href="#PeopletoKnow">People to Know</a></li>
     </ul>
   </div>
 </div>
 
 <p id="notice"><%= notice %></p>
 
-<br>
-<div>
-  <h1 id="stats" class="text-center"><%= @college.name %></h1>
-  <div class="row-fluid push-right">
-    <div class="span2 offset2 text-right push-right">
-      <div id="studentPop">
-        <h4>Student Population</h4>
-        <p>Undergraduate - <%= @college.popUndergrad %></p>
-        <p>Graduate - <%= @college.popGrad %></p>
+<% session[:collegeURL] = college_path %>
+
+
+<%= form_tag(@post, :id => 'matchForm', :class => 'form affix') do %>
+  <fieldset>
+    <legend>Have a student answer your questions!</legend>
+    <p>Just let us know your perspective major and login in with facebook, we'll send
+      send some info to the campus student representative and they'll go ahead and find
+      the best student to help you out!
+    <br />
+    <div id="user_nav">
+      <% if current_user %>
+        Signed in as <strong><%= current_user.name %></strong>!
+        <%= link_to "Sign out", signout_path, id: "sign_out" %>
+      <% else %>
+        <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
+      <% end %>
+    </div>
+    <br />
+    <div class='field'>
+      <%= label_tag(:prospective_major, "Prospective Major") %>
+      <%= text_field_tag(:prospective_major) %>
+    </div>
+    <div class='field'>
+      <%= label_tag(:share, "Would you like to share your information with Jewish Orgaizations?") %>
+      <%= check_box_tag(:share, value = '1', checked = true) %>
+    </div>
+    <div class="fb-login-button" data-show-faces="true" data-width="200" data-max-rows="1"></div>
+    <br />
+    <%= submit_tag("Submit", :class => "btn") %>
+  </fieldset>
+<% end %>
+
+<div class='container-fluid'>
+
+  <div class="row-fluid">
+    <div class='span2'>
+    </div>
+    
+    <div class="span10">
+      <h1 id="stats" class="text-center"><%= @college.name %></h1>
+      <div id="leftColumn" class="span3 offset1 text-right push-right">
+        <div id="studentPop">
+          <h4>Student Population</h4>
+          <p>Undergraduate - <%= @college.popUndergrad %></p>
+          <p>Graduate - <%= @college.popGrad %></p>
+        </div>
+
+        <br>
+
+        <div id="studentAcad" class="fix-right">
+          <h4>General Academics</h4>
+          <p><%= @college.programsOfStudy %>+ programs of study</p>
+          <p>~<%= @college.uniqueCourses %> unique courses</p>
+        </div>
+
+        <br>
+        
+        <div id="studentStudyAbroad">
+          <h4>Study Abroad</h4>
+          <p>~<%= @college.studyAbroad %> programs</p>
+        </div>
       </div>
 
-      <br>
 
-      <div id="studentAcad" class="fix-right">
-        <h4>General Academics</h4>
-        <p><%= @college.programsOfStudy %>+ programs of study</p>
-        <p>~<%= @college.uniqueCourses %> unique courses</p>
+      <div class="span3 vert-centered setImgZIndex">
+        <%= image_tag(@college.imageURL, :alt => "school logo", :id => "collegeImage", :height => "300") %>
+       <!-- <img src= <%= @college.imageURL %> class="img-rounded"> -->
       </div>
+       
 
-      <br>
-      
-      <div id="studentStudyAbroad">
-        <h4>Study Abroad</h4>
-        <p>~<%= @college.studyAbroad %> programs</p>
+      <div id="rightColumn" class="span4 push-left">
+        <div id="jewishPop" >
+          <h4>Jewish Student Population</h4>
+          <p>Undergraduate - <%= @college.jewishPopUndergrad %></p>
+          <p>Graduate - <%= @college.jewishPopGrad %></p>
+        </div>
+
+        <br>
+        
+        <div id="jewishAcad" class="fix-left">
+          <h4>Jewish Academics</h4>
+          <p><%= jewishMajorMinor %></p>
+          <p>~<%= @college.jewishCourses %> relevant courses</p>
+        </div>
+
+        <br>
+        
+        <div id="jewishStudyAbroad">
+          <h4>Israel Study Abroad</h4>
+          <p>~<%= @college.israelStudyAbroad %> programs</p>
+        </div>
       </div>
     </div>
-
-
-    <div class="span3 vert-centered setImgZIndex">
-      <%= image_tag(@college.imageURL, :alt => "school logo", :id => "collegeImage", :height => "300") %>
-     <!-- <img src= <%= @college.imageURL %> class="img-rounded"> -->
+  </div>
+  <div class='row-fluid'>
+    <div class='span2'>
     </div>
-     
-
-    <div class="span3 push-left">
-      <div id="jewishPop" >
-        <h4>Jewish Student Population</h4>
-        <p>Undergraduate - <%= @college.jewishPopUndergrad %></p>
-        <p>Graduate - <%= @college.jewishPopGrad %></p>
-      </div>
-
-      <br>
-      
-      <div id="jewishAcad" class="fix-left">
-        <h4>Jewish Academics</h4>
-        <p><%= jewishMajorMinor %></p>
-        <p>~<%= @college.jewishCourses %> relevant courses</p>
-      </div>
-
-      <br>
-      
-      <div id="jewishStudyAbroad">
-        <h4>Israel Study Abroad</h4>
-        <p>~<%= @college.israelStudyAbroad %> programs</p>
-      </div>
-
+    <div class='span10'>
+      <br />
+      <h4 class="text-center" id="calendar">What's going on?</h4>
+      <center><iframe src=<%=  @college.gcalURL.html_safe  %> style=" border-width:0 " width="800" height="600" frameborder="0" scrolling="no"></iframe></center>
     </div>
   </div>
   <br />
-  <h4 class="text-center" id="calendar">What's going on?</h4>
+  <%= createOrganizations %>
   <br />
-
-  <center><iframe src=<%=  @college.gcalURL.html_safe  %> style=" border-width:0 " width="1000" height="600" frameborder="0" scrolling="no"></iframe></center>
+  <%= createCampusLeaders %>
 </div>
 
+<%= checkStudentSubmit %>
 <% title @college.name %>
-<%= link_to 'Back', colleges_path %>
+<%= link_to 'See all colleges', colleges_path %>

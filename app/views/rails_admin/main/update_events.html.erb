@@ -21,9 +21,10 @@ To get your Google Access Token, go to this link:
 <% end %>
 
 <%= form_tag(@post, :id => "collegeForm") do %>
- <div class="field">
-  <%= label_tag :college %>
-  <%= select_tag(:college, options_for_select(College.all.collect {|c| [ c.name, c.nickname ] })) %>
+  <legend>Update Calendars</legend>
+  <div class="field">
+    <%= label_tag :college %>
+    <%= select_tag(:college, options_for_select(College.all.collect {|c| [ c.name, c.nickname ] })) %>
 </div>
 <div class="field">
   <%= label_tag(:loops, "Number of pages to check:") %>
@@ -34,15 +35,27 @@ To get your Google Access Token, go to this link:
 
 <br />
 
+<%= form_tag(@post, :id => "createCampusLeader") do %>
+  <legend>Create Campus Leader</legend>
+ <div class="field">
+  <%= label_tag :college_org %>
+  <%= select_tag(:college_org, options_from_collection_for_select(College.all, "id", "name"), :prompt => "Select a college", :onchange => "get_organizations(this.value)") %>
+</div>
+ <div class="field">
+  <%= label_tag :organization %>
+  <div id="organization">
+    <%= render :partial => 'event_creators/organizations', :object => Array.new %>
+  </div>
+</div>
+<div class="field">
+  <%= label_tag(:campusLeaderFacebookId, "Facebook ID:") %>
+  <%= text_field_tag(:campusLeaderFacebookId) %>
+</div>
+<%= submit_tag("Create", :class => "btn" ) %>
+<% end %>
+
+<br />
+
+
 <% title "Update Calendar" %>
 <p id="response"><%= checkPosts %></p>
-
-<script>
- $("#collegeForm")
-    .bind("ajax:beforeSend",  toggleLoading)
-    .bind("ajax:complete", toggleLoading)
-    .bind("ajax:success", function(xhr, data, status) {
-      alert('hi');
-      $("#response").html($(data).find("#response").html());
-    });
-</script>

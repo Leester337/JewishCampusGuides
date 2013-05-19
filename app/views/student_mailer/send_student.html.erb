@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+  	<h3><%= @student.name %>  would like to meet you!</h3>
+  	<p><%= @student.name %> has requested to matched with a student to find out more information.</p>
+  	<br />
+  	<p>Here is some of his information to help you find a good match:</p>
+  	<table border="1">
+  		<tr>
+	    	<th>Facebook Link:</th>
+	    	<td><%= @student.link %></td>
+		  </tr>
+		  <tr>
+		    <th>Prospective Major:</th>
+		    <td><%= @student.major %></td>
+		  </tr>
+		  <tr>
+		    <th>Gender:</th>
+		    <td><%= @student.gender %></td>
+		  </tr>
+		  <tr>
+		    <th>Past Education:</th>
+		    <td><%= printEducation(@student.schooled) %></td>
+		  </tr>
+		  <tr>
+		    <th>Interests:</th>
+		    <td><%= printInterests(@student.interested_in) %>
+		    </td>
+		  </tr>
+		  <tr>
+		    <th>Bio:</th>
+		    <td><%= @student.bio %> </td>
+		  </tr>
+		  <tr>
+		    <th>Hometown:</th>
+		    <td><%= @student.hometown %></td>
+		  </tr>
+		  <tr>
+		    <th>Location:</th>
+		    <td><%= @student.location %></td>
+		  </tr>
+		</table>
+
+		<p>You can email <%= @student.name %> at <%= @student.email %>!</p>
+
+  </body>
+</html>

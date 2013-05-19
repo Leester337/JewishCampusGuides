@@ -17,17 +17,17 @@ RailsAdmin.config do |config|
   # RailsAdmin may need a way to know who the current user is]
   config.current_user_method { current_user } # auto-generated
   
-  RailsAdmin.config do |config|
 
-    module RailsAdmin
-      module Config
-        module Actions
-          class UpdateEvents < RailsAdmin::Config::Actions::Base
-            RailsAdmin::Config::Actions.register(self)
-          end
+
+  module RailsAdmin
+    module Config
+      module Actions
+        class UpdateEvents < RailsAdmin::Config::Actions::Base
+          RailsAdmin::Config::Actions.register(self)
         end
       end
     end
+    
     config.actions do
       # root actions
       

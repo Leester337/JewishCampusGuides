@@ -11,7 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130419034412) do
+ActiveRecord::Schema.define(:version => 20130512150500) do
+
+  create_table "campus_leaders", :force => true do |t|
+    t.string   "name"
+    t.string   "picture"
+    t.string   "link"
+    t.integer  "organization_id"
+    t.string   "bio"
+    t.string   "email"
+    t.string   "hometown"
+    t.string   "significant_other"
+    t.string   "quote"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "fid"
+  end
+
+  add_index "campus_leaders", ["organization_id"], :name => "index_campus_leaders_on_organization_id"
 
   create_table "colleges", :force => true do |t|
     t.string   "name"
@@ -27,19 +44,21 @@ ActiveRecord::Schema.define(:version => 20130419034412) do
     t.boolean  "jewishMajor"
     t.integer  "jewishCourses"
     t.integer  "israelStudyAbroad"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.string   "imageURL"
-    t.string   "gcalURL"
+    t.text     "gcalURL",            :limit => 255
+    t.string   "rep_email"
   end
 
   create_table "event_creators", :force => true do |t|
     t.integer  "college_id"
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.string   "cal_id"
     t.string   "fb_id"
+    t.integer  "organization_id"
   end
 
   add_index "event_creators", ["college_id"], :name => "index_event_creators_on_college_id"
@@ -67,10 +86,55 @@ ActiveRecord::Schema.define(:version => 20130419034412) do
 
   add_index "events", ["venue_id"], :name => "index_events_on_venue_id"
 
-  create_table "people", :force => true do |t|
+  create_table "interested_ins", :force => true do |t|
+    t.integer  "prospective_student_id"
+    t.integer  "interest_id"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+  end
+
+  add_index "interested_ins", ["interest_id"], :name => "index_interested_ins_on_interest_id"
+  add_index "interested_ins", ["prospective_student_id"], :name => "index_interested_ins_on_prospective_student_id"
+
+  create_table "interests", :force => true do |t|
+    t.string   "fid"
     t.string   "name"
+    t.string   "category"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "organizations", :force => true do |t|
+    t.string   "name"
+    t.integer  "venue_id"
+    t.text     "description"
+    t.string   "website"
+    t.integer  "yr_established"
+    t.integer  "num_staff"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "college_id"
+    t.string   "picture"
+  end
+
+  add_index "organizations", ["venue_id"], :name => "index_organizations_on_venue_id"
+
+  create_table "prospective_students", :force => true do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "name"
+    t.string   "oauth_token"
+    t.datetime "oauth_expires_at"
+    t.string   "gender"
+    t.string   "link"
+    t.string   "bio"
+    t.string   "email"
+    t.string   "hometown"
+    t.string   "location"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.boolean  "share_with_orgs"
+    t.string   "major"
   end
 
   create_table "rails_admin_histories", :force => true do |t|
@@ -85,6 +149,27 @@ ActiveRecord::Schema.define(:version => 20130419034412) do
   end
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
+
+  create_table "schooleds", :force => true do |t|
+    t.integer  "year"
+    t.string   "degree"
+    t.string   "concentration"
+    t.integer  "prospective_student_id"
+    t.integer  "school_id"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+  end
+
+  add_index "schooleds", ["prospective_student_id"], :name => "index_schooleds_on_prospective_student_id"
+  add_index "schooleds", ["school_id"], :name => "index_schooleds_on_school_id"
+
+  create_table "schools", :force => true do |t|
+    t.string   "name"
+    t.string   "school_type"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "fid"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

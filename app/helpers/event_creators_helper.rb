@@ -13,6 +13,8 @@ module EventCreatorsHelper
 		elsif (params.has_key?(:googleAccessToken))
 			cookies.signed['googleAccessToken'] = { :value => params[:googleAccessToken], :expires => 1.year.from_now}
 			cookies.signed['googleRefreshToken'] = { :value => params[:googleRefreshToken], :expires => 1.year.from_now }
+		elsif (params.has_key?(:campusLeaderFacebookId))
+			return createCampusLeader			
 		end
 		if (params.has_key?(:college) == false)
 			return "Please select a college."
@@ -24,9 +26,36 @@ module EventCreatorsHelper
 			return testGoogleAccess
 		end
 
-
-		#return removeAllEvents
 		return getFBEvents
+	end
+
+=begin
+	Creates a campus leader given the organization and facebook ID.
+=end
+	def createCampusLeader
+		retval = ""
+		fbGraph = getFbGraph
+
+		query = params[:campusLeaderFacebookId] + 
+				"?fields=id,name,email,bio,picture.width(300),link,hometown,significant_other,quotes"
+		#query = "me"
+		campusLeaderStats = fbGraph.get_object(query)
+		#return campusLeaderStats
+		leader = CampusLeader.where(:fid => campusLeaderStats['id']).first_or_initialize(
+			:name => campusLeaderStats['name'],
+			:link => campusLeaderStats['link'],
+			:organization_id => params['organization_id']
+			)
+		leader.picture = campusLeaderStats['picture']['data']['url'] unless campusLeaderStats['picture'].nil?
+		leader.bio = campusLeaderStats['bio']
+		leader.email = campusLeaderStats['email']
+		leader.hometown	= campusLeaderStats['hometown']['name'] unless campusLeaderStats['hometown'].nil?
+		leader.significant_other = campusLeaderStats['significant_other']
+		leader.quote = campusLeaderStats['quotes']
+
+		leader.save
+
+
 	end
 
 =begin
@@ -84,7 +113,7 @@ module EventCreatorsHelper
 			time = Time.new
 			query = event_creator.fb_id + 
 				"/events?since=" + time.year.to_s + "-" + time.month.to_s + "-" + time.day.to_s + 
-				"&fields=cover,picture,description,end_time,id,name,owner,privacy,start_time,ticket_uri,updated_time,venue,invited.summary(1)"
+				"&fields=cover,picture.width(400),description,end_time,id,name,owner,privacy,start_time,ticket_uri,updated_time,venue,invited.summary(1)"
 			creatorEvents = fbGraph.get_object(query)
 			numloops = params[:loops].to_i
 			while numloops != 0
@@ -325,8 +354,8 @@ module EventCreatorsHelper
 	returns the google client
 =end
 	def getGoogleClient
-		client_id = "301625207582.apps.googleusercontent.com"
-		client_secret = "kas6lg_XSCtYVLrOuq06KK_6"
+		client_id = ENV['GOOGLE_CAL_ID']
+		client_secret = ENV['GOOGLE_CAL_SECRET']
 
 		@client = Google::APIClient.new
 		@client.authorization.client_id = client_id
